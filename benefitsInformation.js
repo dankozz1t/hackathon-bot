@@ -1,5 +1,5 @@
 module.exports = {
-  pilgi1: `
+  medicalBenefits: `
 <b>Першочергові безоплатні ліки за рецептами лікарів</b>
 <a href="https://eveteran.gov.ua/benefits/pershochergovi-bezoplatni-liki-za-receptami-likariv">Посилання</a>
 
@@ -31,7 +31,7 @@ module.exports = {
 <a href="https://eveteran.gov.ua/benefits/pershochergove-obslugovuvannya-v-likuvalno-profilaktichnih-zakladah">Посилання</a>
 `,
 
-  pilgi2: `
+  rehabilitation: `
 <b>Безоплатне забезпечення санаторно-курортним лікуванням</b>
 <a href="https://eveteran.gov.ua/benefits/bezoplatne-zabezpechennya-sanatorno-kurortnim-likuvannyam">Посилання</a>
 
@@ -54,7 +54,7 @@ module.exports = {
 <a href="https://eveteran.gov.ua/benefits/bezplatne-zabezpechennya-inshimi-protezami-i-protezno-ortopedichnimi-virobami">Посилання</a>
 `,
 
-  pilgi3: `
+  vehicleProvision: `
 <b>Надання переважного права на вступ до закладів вищої, фахової передвищої освіти</b>
 <a href="https://eveteran.gov.ua/benefits/nadannya-perevazhnogo-prava-na-vstup-do-zakladiv-vishchoyi-fahovoyi-peredvishchoyi-osviti">Посилання</a>
 
@@ -82,7 +82,8 @@ module.exports = {
 <b>Безоплатне забезпечення підручниками</b>
 <a href="https://eveteran.gov.ua/benefits/bezoplatne-zabezpechennya-pidruchnikami">Посилання</a>
 `,
-  pilgi4: `
+
+  educationalBenefits: `
 <b>Першочерговість вступу до кооперативів по будівництву та експлуатації колективних гаражів</b>
 <a href="https://eveteran.gov.ua/benefits/pershochergovist-vstupu-do-kooperativiv-po-budivnictvu-ta-ekspluataciyi-kolektivnih-garazhiv">Посилання</a>
 

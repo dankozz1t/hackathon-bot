@@ -1,6 +1,7 @@
 require("dotenv").config();
 
-const pilgi = require("./pіlgi");
+const benefits = require("./benefitsInformation");
+const questionsPTSD = require("./testQuestionsPTSD");
 
 const { Bot, Keyboard, InputFile, session } = require("grammy");
 
@@ -9,28 +10,6 @@ const bot = new Bot(process.env.BOT_API_KEY);
 function initial() {
   return { questionIndex: undefined, score: undefined };
 }
-
-let questions = [
-  "1. Думки та спогади, що повторюються і турбують, або нав’язливі картини стресового досвіду з минулого?",
-  "2. Повторювані, хвилюючі сновидіння про стресовий досвід?",
-  "3. Раптове відчуття ніби стресовий досвід знову трапляється (переживаєте ситуацію знову)?",
-  "4. Відчуття пригнічення, смутку, коли щось нагадувало вам стресову ситуацію з минулого?",
-  "5. Сильні фізичні реакції, коли щось нагадувало про стресовий досвід (наприклад, серцебиття, утруднене дихання,",
-  "6. Уникання думок або розмов про стресову ситуацію у минулому або уникання почуттів, пов’язаних з цією ситуацією?",
-  "7. Уникання певної діяльності або ситуацій, тому що вони нагадують вам стресову ситуацію з минулого?",
-  "8. Труднощі з пригадуванням важливих моментів стресового досвіду з минулого?",
-  "9. Сильні негативні переконання про себе, інших людей або навколишній світ (наприклад, «я поганий», «зі мною щось дуже не так», «нікому не можна довіряти», «світ – небезпечне місце»)?",
-  "10. Звинувачення себе або інших на рахунок стресового досвіду, або того, що сталося після нього?",
-  "11. Сильні негативні емоції, такі як страх, жах, злість, почуття провини або сором?",
-  "13. Відчуття віддаленості або відокремленості від інших?",
-  "14. Проблеми у переживанні позитивних емоцій (наприклад, незмога відчувати радість або любов до близької людини)?",
-  "15. Роздратування, спалахи гніву, агресивна поведінка?",
-  "16. Ризикова поведінка, яка може зашкодити?",
-  "17. Перебування «на взводі» або «на сторожі»?",
-  "18. Відчуття постійної напруги?",
-  "19. Труднощі із зосередженістю?",
-  "20. Проблеми із засинанням або нічні прокидання?",
-];
 
 bot.use(session({ initial }));
 
@@ -47,7 +26,7 @@ function startWellnessTest(ctx) {
     .text("Повернутись до головного меню")
     .text("Допомога спеціаліста");
 
-  ctx.reply(`${questions[0]}`, {
+  ctx.reply(`${questionsPTSD[0]}`, {
     reply_markup: { keyboard: keyboard.build(), resize_keyboard: true },
   });
   ctx.session.questionIndex = 0;
@@ -96,13 +75,13 @@ bot.on("message:text", async (ctx) => {
   if (text === "Гарантії та пільги") {
     ctx.reply("Оберіть тему:", themeMenu);
   } else if (text === "Медичні пільги") {
-    ctx.reply(pilgi.pilgi1, { parse_mode: "HTML" });
+    ctx.reply(benefits.medicalBenefits, { parse_mode: "HTML" });
   } else if (text === "Реабілітація") {
-    ctx.reply(pilgi.pilgi2, { parse_mode: "HTML" });
+    ctx.reply(benefits.rehabilitation, { parse_mode: "HTML" });
   } else if (text === "Освітні пільги") {
-    ctx.reply(pilgi.pilgi3, { parse_mode: "HTML" });
+    ctx.reply(benefits.educationalBenefits, { parse_mode: "HTML" });
   } else if (text === "Забезпечення автомобілем та місцем для нього") {
-    ctx.reply(pilgi.pilgi4, { parse_mode: "HTML" });
+    ctx.reply(benefits.vehicleProvision, { parse_mode: "HTML" });
   } else if (
     text === "Пройти тест на посттравматичний стресовий розлад (ПТСР)"
   ) {
@@ -134,13 +113,13 @@ bot.on("message:text", async (ctx) => {
         resize_keyboard: true,
       },
     });
-  } else if (ctx.session?.questionIndex !== undefined) {
+  } else if (ctx.session?.questionIndex !== undefined && text.includes("–")) {
     const answerScore = parseInt(text.split(" – ")[1]);
 
     ctx.session.score += answerScore;
-    if (ctx.session?.questionIndex < questions.length - 1) {
+    if (ctx.session?.questionIndex < questionsPTSD.length - 1) {
       ctx.session.questionIndex++;
-      ctx.reply(questions[ctx.session.questionIndex], {
+      ctx.reply(questionsPTSD[ctx.session.questionIndex], {
         reply_markup: {
           keyboard: new Keyboard()
             .text("Зовсім ні – 0")
